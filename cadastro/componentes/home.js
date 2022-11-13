@@ -1,16 +1,22 @@
 import { StyleSheet, Text, View, Button, TextInput, Image } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import Home from "./componentes/home";
-import Login from "./componentes/login";
+import Votacao from "../componentes/votacao";
+import Actions from "../componentes/actions";
+import Partidos from "../componentes/partidos";
+import Candidatos from "../componentes/candidatos";
+import Resultado from "../componentes/resultado";
 
 const Routes = createAppContainer(
   createSwitchNavigator({
-    Login,
-    Home
+    Actions,
+    Partidos,
+    Candidatos,
+    Votacao,
+    Resultado,
   })
 );
 
-export default function App() {
+export default function Home({ navigation }) {
   return <Routes />;
 }
 
