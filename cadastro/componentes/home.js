@@ -5,7 +5,8 @@ import Actions from "../componentes/actions";
 import Partidos from "../componentes/partidos";
 import Candidatos from "../componentes/candidatos";
 import Resultado from "../componentes/resultado";
-
+import CadastroPartido from "./cadastroPartido";
+import CadastroCandidato from "./cadastroCandidato";
 const Routes = createAppContainer(
   createSwitchNavigator({
     Actions,
@@ -13,6 +14,9 @@ const Routes = createAppContainer(
     Candidatos,
     Votacao,
     Resultado,
+    CadastroPartido,
+    CadastroCandidato
+
   })
 );
 

@@ -12,7 +12,7 @@ export default function Actions({ navigation }) {
       {sessionStorage.getItem("perfil") === "admin" ? (
         <TouchableOpacity
           style={styles.botao}
-          onPress={() => navigation.navigate("Partidos")}
+          onPress={() => navigation.navigate("CadastroPartido")}
         >
           <Text>Partidos</Text>
         </TouchableOpacity>
@@ -22,7 +22,7 @@ export default function Actions({ navigation }) {
       {sessionStorage.getItem("perfil") === "admin" ? (
         <TouchableOpacity
           style={styles.botao}
-          onPress={() => navigation.navigate("Candidatos")}
+          onPress={() => navigation.navigate("CadastroCandidato")}
         >
           <Text>Candidatos</Text>
         </TouchableOpacity>
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "start",
   },
   botao: {
     backgroundColor: "#33ffbb",
-    marginTop: 10,
+    marginTop: 50,
     borderRadius: 10,
     width: "25%",
     height: 50,
