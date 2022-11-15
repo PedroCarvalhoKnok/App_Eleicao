@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TextInput, Image } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity } from "react-native";
 
 export default function Votacao({ navigation }) {
   return (
@@ -25,30 +25,39 @@ export default function Votacao({ navigation }) {
 
       <View style={styles.brancoView}>
         <View style={styles.brancoBtn}>
-          <Button
+        <View style={styles.corrigeView}>
+        <TouchableOpacity
             //onPress={onPressLearnMore}
-            title="Branco"
-            color="#841584"
-            accessibilityLabel="Botao para votar em branco"
-          />
+            style={styles.cadastroBtn}
+          >
+            Corrige
+          </TouchableOpacity>
+
+        </View>
         </View>
 
         <View style={styles.corrigeView}>
-          <Button
+        <View style={styles.corrigeView}>
+        <TouchableOpacity
             //onPress={onPressLearnMore}
-            title="Corrige"
-            color="#841584"
-            accessibilityLabel="Botao para corrigir o número votado"
-          />
+            style={styles.cadastroBtn}
+          >
+            Confirma
+          </TouchableOpacity>
+
+        </View>
         </View>
 
         <View style={styles.corrigeView}>
-          <Button
+        <View style={styles.corrigeView}>
+        <TouchableOpacity
             //onPress={onPressLearnMore}
-            title="Confirma"
-            color="#841584"
-            accessibilityLabel="Botao para confirmar a votacao"
-          />
+            style={styles.cadastroBtn}
+          >
+            Branco
+          </TouchableOpacity>
+
+        </View>
         </View>
 
         <StatusBar style="auto" />
@@ -76,7 +85,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   brancoView: { width: 300, height: 200 },
-  brancoBtn: { paddingTop: 80 },
-  corrigeView: { paddingTop: 60 },
+  brancoBtn: { paddingTop: 40 },
+  corrigeView: { paddingTop: 15 },
+  cadastroBtn: {
+    backgroundColor: "#33ffbb",
+    borderRadius: 10,
+    textAlign: "center",
+    justifyContent: "center",
+    height: 50,
+  },
 
 });

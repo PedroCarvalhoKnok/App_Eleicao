@@ -1,5 +1,6 @@
+
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useState, useEffect } from "react";
 import Candidato from "./candidato";
@@ -8,6 +9,7 @@ export default function Resultado({ navigation }) {
   const [cargo, setCargo] = useState("");
   const [cargos, setCargos] = useState(["Senador", "Governador", "Presidente"]);
   const[candidatos, setCandidatos] = useState([{nome: 'Zezinho', partido: 'PT', descricao: 'ze da cove'}, {nome: 'Biruliru', partido: 'PL', descricao: 'nao sou coveiro'}, {nome: 'Alquimista', partido: 'PSDB', descricao: 'teste'}]);
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.tipo}>Resultados</Text>

@@ -4,22 +4,28 @@ import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
 export default function Candidato({ candidato }) {
   return (
     <View style={styles.usuario}>
-      <View>
-        <Text style={styles.listaNome}>Nome</Text>
-        <Text style={styles.listaNome}>{candidato.nome}</Text>
-        <Text style={styles.listaNome}>Partido</Text>
-        <Text style={styles.listaNome}>{candidato.partido}</Text>
+      <View style={{ backgroundColor: "#33ffbb" , width: 300, }}>
+        <View>
+          <Text style={styles.listaNome}
+            onChangeText={(texto) => setNome(texto)}
+            value={nome}>Nome: {candidato.nome}</Text>
+          <Text style={styles.listaNome}
+           onChangeText={(texto) => setPartido(texto)}
+           value={nome}>Partido: {candidato.partido}</Text>
       </View>
 
       <View style={{ flexDirection: "column" }}>
-        <Text style={styles.listaNome}>Categoria {candidato.descricao}</Text>
+          <Text style={styles.listaNome}
+             onChangeText={(texto) => setCategoria(texto)}
+             value={nome}
+          >Categoria {candidato.descricao}</Text>
       </View>
       <View style={styles.dadosBotoesAcao}>
-        <Text style={styles.listaNome}>Total em %</Text>
         <TouchableOpacity>
-          <Text style={styles.listaNome}>{candidato.percentual}</Text>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.listaNome}>{candidato.percentual}%</Text>
+          </TouchableOpacity>
+        </View>
+        </View>
     </View>
   );
 }
@@ -58,11 +64,13 @@ const styles = StyleSheet.create({
   },
   listaNome: {
     fontSize: 15,
+    paddingTop: 10,
   },
   usuario: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop:20,
   },
 });

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TextInput, Image } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity} from "react-native";
 
 export default function Candidatos({ navigation }) {
   return (
@@ -21,30 +21,35 @@ export default function Candidatos({ navigation }) {
 
       <View style={styles.brancoView}>
         <View style={styles.brancoBtn}>
-          <Button
-            //onPress={onPressLearnMore}
-            title="Branco"
-            color="#841584"
-            accessibilityLabel="Botao para votar em branco"
-          />
         </View>
 
         <View style={styles.corrigeView}>
-          <Button
+        <TouchableOpacity
             //onPress={onPressLearnMore}
-            title="Corrige"
-            color="#841584"
-            accessibilityLabel="Botao para corrigir o número votado"
-          />
+            style={styles.cadastroBtn}
+          >
+            Corrige
+          </TouchableOpacity>
         </View>
 
         <View style={styles.corrigeView}>
-          <Button
+        <TouchableOpacity
             //onPress={onPressLearnMore}
-            title="Confirma"
-            color="#841584"
-            accessibilityLabel="Botao para confirmar a votacao"
-          />
+            style={styles.cadastroBtn}
+          >
+            Confirma
+          </TouchableOpacity>
+
+        </View>
+
+        <View style={styles.corrigeView}>
+        <TouchableOpacity
+            //onPress={onPressLearnMore}
+            style={styles.cadastroBtn}
+          >
+            Branco
+          </TouchableOpacity>
+
         </View>
 
         <StatusBar style="auto" />
@@ -74,5 +79,12 @@ const styles = StyleSheet.create({
   brancoView: { width: 300, height: 200 },
   brancoBtn: { paddingTop: 80 },
   corrigeView: { paddingTop: 60 },
+  cadastroBtn: {
+    backgroundColor: "#33ffbb",
+    borderRadius: 10,
+    textAlign: "center",
+    justifyContent: "center",
+    height: 50,
+  },
 
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, TextInput, Image } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity } from "react-native";
 
 export default function CadastroPartido({ navigation }) {
   return (
@@ -22,12 +22,12 @@ export default function CadastroPartido({ navigation }) {
         ></TextInput>
       </View>
       <View style={styles.brancoBtn}>
-        <Button
-          //onPress={onPressLearnMore}
-          title="Branco"
-          color="#841584"
-          accessibilityLabel="Botao para votar em branco"
-        />
+      <TouchableOpacity
+            //onPress={onPressLearnMore}
+            style={styles.cadastroBtn}
+          >
+            Cadastrar
+          </TouchableOpacity>
       </View>
     </View>
   );
@@ -53,4 +53,11 @@ const styles = StyleSheet.create({
     width: 250,
   },
   brancoBtn: { paddingTop: 80, width: 300, fontSize: 30 },
+  cadastroBtn: {
+    height: 50,
+    backgroundColor: "#33ffbb",
+    borderRadius: 10,
+    textAlign: "center",
+    justifyContent: "center",
+  }
 });
