@@ -1,14 +1,67 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity, Alert } from "react-native";
+import { useState } from "react";
+import { InserirVoto } from "../service/votacaoService"
 
 export default function Votacao({ navigation }) {
+  const [cargo, setCargo] = useState("Governador");
+  const [voto, setVoto] = useState("");
+
+
+  function validarVoto() {
+    let resultado = true;
+
+    if(voto === '')
+      return false;
+
+    switch (cargo) {
+      case "Governador":
+        resultado = voto.length != 2 ? false : true;
+        break;
+      case "Senador":
+        resultado = voto.length != 3 ? false : true;
+        break;
+      case "Presidente":
+        resultado = voto.length != 2 ? false : true;
+        break;
+    }
+
+    return resultado;
+  }
+
+
+  async function votar() {
+
+    if (!validarVoto()) {
+      Alert.alert(`Favor informar um candidato com número válido.`);
+    }
+
+    await InserirVoto(voto, cargo).then((response) => {
+      if (response === 'voto inserido com sucesso' && cargo === "Governador") {
+        setCargo("Senador");
+        setVoto("");
+      }
+
+      if (response === 'voto inserido com sucesso' && cargo === "Senador") {
+        setCargo("Presidente");
+        setVoto("");
+      }
+
+      if (response === 'voto inserido com sucesso' && cargo === "Presidente") {
+        Alert.alert('FIM');
+      }
+    });
+
+
+  }
+
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={require("../assets/eleicao.png")}
       />
-      <Text style={styles.tipo}>Governador</Text>
+      <Text value={cargo} style={styles.tipo}></Text>
       <View style={styles.escolhaContainer}>
         <Text
           style={styles.escolha}
@@ -17,47 +70,48 @@ export default function Votacao({ navigation }) {
         </Text>
         <TextInput
           style={styles.entrada}
+          onChangeText={(texto) => setVoto(texto)}
           maxLength={40}
-          defaultValue=""
+          value={voto}
           placeholder="Vote!"
         ></TextInput>
       </View>
 
       <View style={styles.brancoView}>
         <View style={styles.brancoBtn}>
-        <View style={styles.corrigeView}>
-        <TouchableOpacity
-            //onPress={onPressLearnMore}
-            style={styles.cadastroBtn}
-          >
-            Corrige
-          </TouchableOpacity>
+          <View style={styles.corrigeView}>
+            <TouchableOpacity
+              onPress={() => { setVoto("") }}
+              style={styles.cadastroBtn}
+            >
+              Corrige
+            </TouchableOpacity>
 
-        </View>
-        </View>
-
-        <View style={styles.corrigeView}>
-        <View style={styles.corrigeView}>
-        <TouchableOpacity
-            //onPress={onPressLearnMore}
-            style={styles.cadastroBtn}
-          >
-            Confirma
-          </TouchableOpacity>
-
-        </View>
+          </View>
         </View>
 
         <View style={styles.corrigeView}>
-        <View style={styles.corrigeView}>
-        <TouchableOpacity
-            //onPress={onPressLearnMore}
-            style={styles.cadastroBtn}
-          >
-            Branco
-          </TouchableOpacity>
+          <View style={styles.corrigeView}>
+            <TouchableOpacity
+              onPress={() => { votar(); }}
+              style={styles.cadastroBtn}
+            >
+              Confirma
+            </TouchableOpacity>
 
+          </View>
         </View>
+
+        <View style={styles.corrigeView}>
+          <View style={styles.corrigeView}>
+            <TouchableOpacity
+              onPress={() => { setVoto("00"); votar(); }}
+              style={styles.cadastroBtn}
+            >
+              Branco
+            </TouchableOpacity>
+
+          </View>
         </View>
 
         <StatusBar style="auto" />

@@ -8,7 +8,7 @@ import Candidato from "./candidato";
 export default function Resultado({ navigation }) {
   const [cargo, setCargo] = useState("");
   const [cargos, setCargos] = useState(["Senador", "Governador", "Presidente"]);
-  const[candidatos, setCandidatos] = useState([{nome: 'Zezinho', partido: 'PT', descricao: 'ze da cove'}, {nome: 'Biruliru', partido: 'PL', descricao: 'nao sou coveiro'}, {nome: 'Alquimista', partido: 'PSDB', descricao: 'teste'}]);
+  const[candidatos, setCandidatos] = useState([{nome: 'Zezinho', partido: 'PT', descricao: 'ze da cove', percentual: '45%'}, {nome: 'Biruliru', partido: 'PL', descricao: 'teste', percentual: '45%'}, {nome: 'Alquimista', partido: 'PSDB', descricao: 'teste', percentual: '10%'}]);
  
   return (
     <View style={styles.container}>
