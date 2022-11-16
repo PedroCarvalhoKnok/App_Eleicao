@@ -1,37 +1,108 @@
+import{CadastrarCandidato} from "../service/candidatoService";
 import { Picker } from "@react-native-picker/picker";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   Image,
-  TouchableOpacity,
+  TouchableOpacity, Alert
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
+
 
 export default function CadastroCandidato({ navigation }) {
   const [cargo, setCargo] = useState("");
   const [partido, setPartido] = useState("");
   const [cargos, setCargos] = useState(["Senador", "Governador", "Presidente"]);
   const [partidos, setPartidos] = useState(["PT", "PSDB", "PL", "PSOL"]);
+  const [candidato, setCandidatos] = useState("");
+  const [nome, setNome] = useState("");
+  const [numero, setNumero] = useState("");
+  const [descricao, setDescricao] = useState("");
+
+  useEffect(
+    () => {
+      console.log('processando useEffect');
+      carregamentosUseEffect();
+    }, []
+  );
+
+  async function carregamentosUseEffect() {
+    await carregaCandidatos();
+  }
+
+
+  async function carregaCandidatos() {
+    try {
+      if (candidato.length == 0) {
+        console.log('Carregando candidatos...');
+        let resposta = await api.get('/api/candidatos');
+        setCandidatos(resposta.data);
+        console.log(`Carregado ${resposta.data.length} candidato...`);
+      }
+    }
+    catch (e) {
+      Alert.alert(e.toString());
+    }
+  }
+
+
+  async function salva() {
+    /* as validações estão sendo feitas do lado do servidor. */
+    let candidato = {
+      nome: nome,
+      numero: numero,
+      cargo: cargo,
+      descricao: descricao,
+      partido: partido 
+      
+    };
+    console.log(candidato);
+    await CadastrarCandidato(candidato)
+
+  }
+
+
+  function trataErroAPI(error) {
+    if (error.response && error.response.data && error.response.data.erro) {
+      Alert.alert(error.response.data.erro);
+    }
+    else {
+      Alert.alert(error.toString());
+    }
+  }
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.tipo}>Cadastro de Candidatos</Text>
       <View style={styles.escolhaContainer}>
         <TextInput
           style={styles.entrada}
+          onChangeText={(texto) => setNumero(texto)}
           maxLength={40}
           defaultValue=""
-          placeholder="Código"
+          placeholder="Número"
         ></TextInput>
       </View>
       <View style={styles.escolhaContainer}>
         <TextInput
           style={styles.entrada}
+          onChangeText={(texto) => setNome(texto)}
           maxLength={40}
           defaultValue=""
           placeholder="Nome do Candidato"
+        ></TextInput>
+      </View>
+      <View style={styles.container}>
+      <View style={styles.escolhaContainer}>
+        <TextInput
+            style={styles.entrada}
+            onChangeText={(texto) => setDescricao(texto)}
+          maxLength={40}
+          defaultValue=""
+          placeholder="Descricao"
         ></TextInput>
       </View>
       <View style={styles.brancoView}>
@@ -62,15 +133,16 @@ export default function CadastroCandidato({ navigation }) {
         </View>
 
         <View style={styles.corrigeView}>
-          <TouchableOpacity
-            //onPress={onPressLearnMore}
-            style={styles.cadastroBtn}
-          >
-            Cadastrar
+            <TouchableOpacity
+              onPress={() => { salva() }}
+              style={styles.cadastroBtn}
+            >
+              <Text>Cadastrar</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+      </View>
+      </View>
   );
 }
 

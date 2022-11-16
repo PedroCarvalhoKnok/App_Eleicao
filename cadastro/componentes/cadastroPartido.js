@@ -1,12 +1,44 @@
+import { CadastrarPartido } from "../service/partidoService";
+
 import { StyleSheet, Text, View, Button, TextInput, Image, TouchableOpacity } from "react-native";
+import { useState } from "react";
 
 export default function CadastroPartido({ navigation }) {
+  const [nome, setNome] = useState("");
+  const [numero, setNumero] = useState("");
+  const [descricao, setDescricao] = useState("");
+
+  async function salva() {
+    /* as validações estão sendo feitas do lado do servidor. */
+    let partido = {
+      descricao: descricao,
+      nome: nome,
+      numero:numero
+      
+    };
+    console.log(partido);
+    await CadastrarPartido(partido)
+
+  }
+
+  function trataErroAPI(error) {
+    if (error.response && error.response.data && error.response.data.erro) {
+      Alert.alert(error.response.data.erro);
+    }
+    else {
+      Alert.alert(error.toString());
+    }
+  }
+
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.tipo}>Cadastro de Partidos</Text>
       <View style={styles.escolhaContainer}>
         <TextInput
           style={styles.entrada}
+          onChangeText={(texto) => setNome(texto)}
           maxLength={40}
           defaultValue=""
           placeholder="Sigla"
@@ -16,6 +48,16 @@ export default function CadastroPartido({ navigation }) {
       <View style={styles.escolhaContainer}>
         <TextInput
           style={styles.entrada}
+          onChangeText={(texto) => setNumero(texto)}
+          maxLength={40}
+          defaultValue=""
+          placeholder="Numero"
+        ></TextInput>
+      </View>
+      <View style={styles.escolhaContainer}>
+        <TextInput
+          style={styles.entrada}
+          onChangeText={(texto) => setDescricao(texto)}
           maxLength={40}
           defaultValue=""
           placeholder="Descrição"
@@ -23,10 +65,10 @@ export default function CadastroPartido({ navigation }) {
       </View>
       <View style={styles.brancoBtn}>
       <TouchableOpacity
-            //onPress={onPressLearnMore}
-            style={styles.cadastroBtn}
+          style={styles.cadastroBtn}
+          onPress={() => { salva() }}
           >
-            Cadastrar
+            <Text>Cadastrar</Text>
           </TouchableOpacity>
       </View>
     </View>
